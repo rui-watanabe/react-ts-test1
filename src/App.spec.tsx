@@ -4,6 +4,8 @@ import { createMemoryHistory } from "history"
 import { render } from "@testing-library/react"
 import { Router } from "react-router-dom"
 
+jest.mock("./Home", () => ({ Home: () => <div>Home</div> }))
+
 describe("App", () => {
   it("renders successfully", () => {
     const history = createMemoryHistory()

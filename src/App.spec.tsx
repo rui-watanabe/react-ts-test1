@@ -5,6 +5,7 @@ import { render } from "@testing-library/react"
 import { Router } from "react-router-dom"
 
 jest.mock("./Home", () => ({ Home: () => <div>Home</div> }))
+jest.mock("./Cart", () => ({ Cart: () => <div>Cart</div>}))
 
 describe("App", () => {
   it("renders successfully", () => {
@@ -27,4 +28,15 @@ describe("App", () => {
     )
     expect(container.innerHTML).toMatch("Home")
   })
+
+    it("render Order Component on /cart route", () => {
+      const history = createMemoryHistory()
+      history.push("/cart")
+      const { container } = render(
+        <Router history={history}>
+          <App />
+        </Router>
+      )
+      expect(container.innerHTML).toMatch("Cart")
+    })
 })

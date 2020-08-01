@@ -1,5 +1,6 @@
 import React from "react"
 import { App } from "./App"
+import { Header } from "./shared/Header"
 import { createMemoryHistory } from "history"
 import { render } from "@testing-library/react"
 import { Router } from "react-router-dom"
@@ -8,6 +9,7 @@ jest.mock("./Home", () => ({ Home: () => <div>Home</div> }))
 jest.mock("./Cart", () => ({ Cart: () => <div>Cart</div>}))
 jest.mock("./Checkout", () => ({ Checkout: () => <div>Checkout</div> }))
 jest.mock("./OrderSummary", () => ({ OrderSummary: () => <div>Order summary</div> }))
+jest.mock("./CartWidget", () => ({ CartWidget: () => <div>Cart Widget</div>}))
 
 describe("App", () => {
 it("renders home page on '/'", () => {
@@ -43,5 +45,13 @@ it("renders checkout page on '/cart'", () => {
       "/cart"
     )
     expect(container.innerHTML).toMatch("Cart")
+  })
+})
+
+describe("Header", () => {
+  it("render correctly", () => {
+    const { container } = renderWithRouter(() => <Header />)
+    expect(container.innerHTML).toMatch("Goblin Store")
+    expect(container.innerHTML).toMatch("Cart Widget")
   })
 })

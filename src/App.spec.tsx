@@ -6,19 +6,19 @@ import { Router } from "react-router-dom"
 
 jest.mock("./Home", () => ({ Home: () => <div>Home</div> }))
 jest.mock("./Cart", () => ({ Cart: () => <div>Cart</div>}))
+jest.mock("./Checkout", () => ({ Checkout: () => <div>Checkout</div> }))
+jest.mock("./OrderSummary", () => ({ OrderSummary: () => <div>Order summary</div> }))
 
 describe("App", () => {
-  it("renders successfully", () => {
-    const history = createMemoryHistory()
-    const { container } = render(
-      <Router history={history}>
-        <App />
-      </Router>
+it("renders home page on '/'", () => {
+    const { container } = renderWithRouter(
+      () => <App />,
+      "/"
     )
-    expect(container.innerHTML).toMatch("Goblin Store")
+    expect(container.innerHTML).toMatch("Home")
   })
 
-  it("renders Home component on root route", () => {
+it("renders Home component on root route", () => {
     const history = createMemoryHistory()
     history.push("/")
     const { container } = render(
@@ -29,14 +29,19 @@ describe("App", () => {
     expect(container.innerHTML).toMatch("Home")
   })
 
-    it("render Order Component on /cart route", () => {
-      const history = createMemoryHistory()
-      history.push("/cart")
-      const { container } = render(
-        <Router history={history}>
-          <App />
-        </Router>
-      )
-      expect(container.innerHTML).toMatch("Cart")
-    })
+it("renders checkout page on '/cart'", () => {
+    const { container } = renderWithRouter(
+      () => <App />,
+      "/cart"
+    )
+    expect(container.innerHTML).toMatch("Cart")
+  })
+
+it("renders checkout page on '/cart'", () => {
+    const { container } = renderWithRouter(
+      () => <App />,
+      "/cart"
+    )
+    expect(container.innerHTML).toMatch("Cart")
+  })
 })
